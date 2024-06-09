@@ -1,0 +1,5 @@
+(fp_lib_table
+  (lib (name "receiver")(type "KiCad")(uri "${KIPRJMOD}/RailLed.pretty")(options "")(descr ""))
+  (lib (name "BalanceBoard")(type "KiCad")(uri "${KIPRJMOD}/RailLed.pretty")(options "")(descr ""))
+  (lib (name "RailLed")(type "KiCad")(uri "${KIPRJMOD}/RailLed.pretty")(options "")(descr ""))
+)

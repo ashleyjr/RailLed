@@ -1,0 +1,7 @@
+(sym_lib_table
+  (lib (name "receiver")(type "Legacy")(uri "${KIPRJMOD}/RailLed.lib")(options "")(descr ""))
+  (lib (name "power")(type "Legacy")(uri "${KIPRJMOD}/power.lib")(options "")(descr ""))
+  (lib (name "BalanceBoard-rescue")(type "Legacy")(uri "${KIPRJMOD}/RailLed-rescue.lib")(options "")(descr ""))
+  (lib (name "BalanceBoard")(type "KiCad")(uri "${KIPRJMOD}/BalanceBoard.kicad_sym")(options "")(descr ""))
+  (lib (name "RailLed")(type "KiCad")(uri "${KIPRJMOD}/RailLed.kicad_sym")(options "")(descr ""))
+)
