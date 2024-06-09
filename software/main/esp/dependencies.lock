@@ -1,0 +1,15 @@
+dependencies:
+  idf:
+    component_hash: null
+    source:
+      type: idf
+    version: 5.2.1
+  protocol_examples_common:
+    component_hash: null
+    source:
+      path: /home/ashleyjr/esp/esp-idf/examples/common_components/protocol_examples_common
+      type: local
+    version: '*'
+manifest_hash: 99bdc1ab282a14ca0eb85f115949bc2b997ef3d575611a5693ec34986a2ae32f
+target: esp32
+version: 1.0.0
