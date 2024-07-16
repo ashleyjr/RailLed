@@ -27,7 +27,41 @@
 
 #include "../common/rail_led.h"
 
+
+leds ic[NUM_ICS];
+
 static const char *TAG = "main";
+
+void leds_on(void){   
+   gpio_set_level(OUTPUT_BLANK, 0);  
+}
+
+void leds_off(void){   
+   gpio_set_level(OUTPUT_BLANK, 1);  
+}
+
+void update_leds(leds * l){
+   int32_t i, ii, iii;
+   for(i=NUM_ICS-1;i>=0;i--){ 
+      for(ii=NUM_LEDS_PER_IC-1;ii>=0;ii--){ 
+         for(iii=15;iii>=4;iii--){ 
+            vTaskDelay(20 / portTICK_PERIOD_MS);
+            gpio_set_level(OUTPUT_SCLK, 0);
+            vTaskDelay(10 / portTICK_PERIOD_MS); 
+            gpio_set_level(OUTPUT_SOUT, ((l[i][ii] >> iii) & 1)); 
+            vTaskDelay(10 / portTICK_PERIOD_MS);
+            gpio_set_level(OUTPUT_SCLK, 1);  
+         }
+      }
+   }
+   // Apply updates
+   gpio_set_level(OUTPUT_XLAT, 0);  
+   vTaskDelay(10 / portTICK_PERIOD_MS);
+   gpio_set_level(OUTPUT_XLAT, 1);  
+   vTaskDelay(10 / portTICK_PERIOD_MS);
+   gpio_set_level(OUTPUT_XLAT, 0);
+}
+
 
 void app_main(void){
    gpio_config_t io_conf = {};
@@ -71,11 +105,32 @@ void app_main(void){
 
 
    
-   ESP_LOGI(TAG, "Read as %d", gpio_get_level(INPUT_SIN));
-   ESP_ERROR_CHECK(gpio_set_level(OUTPUT_XLAT, 1));
-   ESP_LOGI(TAG, "Read as %d", gpio_get_level(INPUT_SIN));
-   ESP_ERROR_CHECK(gpio_set_level(OUTPUT_SOUT, 1));
-   ESP_LOGI(TAG, "Read as %d", gpio_get_level(INPUT_SIN)); 
-   ESP_ERROR_CHECK(gpio_set_level(OUTPUT_SOUT, 0)); 
-   ESP_LOGI(TAG, "Read as %d", gpio_get_level(INPUT_SIN)); 
+   //ESP_LOGI(TAG, "Read as %d", gpio_get_level(INPUT_SIN));
+   //ESP_ERROR_CHECK(gpio_set_level(OUTPUT_XLAT, 1));
+   //ESP_LOGI(TAG, "Read as %d", gpio_get_level(INPUT_SIN));
+   //ESP_ERROR_CHECK(gpio_set_level(OUTPUT_SOUT, 1));
+   //ESP_LOGI(TAG, "Read as %d", gpio_get_level(INPUT_SIN)); 
+   //ESP_ERROR_CHECK(gpio_set_level(OUTPUT_SOUT, 0)); 
+   //ESP_LOGI(TAG, "Read as %d", gpio_get_level(INPUT_SIN)); 
+
+
+   //leds_off();
+   //vTaskDelay(1000 / portTICK_PERIOD_MS);
+   //leds_on();
+   //vTaskDelay(1000 / portTICK_PERIOD_MS);
+   //leds_off();
+   //vTaskDelay(1000 / portTICK_PERIOD_MS);
+   //leds_on();
+   //vTaskDelay(1000 / portTICK_PERIOD_MS);
+   //leds_off();
+   //vTaskDelay(1000 / portTICK_PERIOD_MS);
+
+
+   leds_off(); 
+   for(uint16_t i=0;i<0xFFFF;i+=16){
+      ic[0][0] = i; 
+      update_leds(ic);
+      leds_on();
+   }
+
 }

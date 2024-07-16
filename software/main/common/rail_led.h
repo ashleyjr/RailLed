@@ -14,4 +14,14 @@
 #define OUTPUT_SOUT  19
 #define INPUT_SIN    18
 
+
+#define NUM_ICS            1
+#define NUM_LEDS_PER_IC    24
+#define SHIFT_PER_IC_BITS  288
+#define SHIFT_BITS         (SHIFT_PER_IC_BITS * NUM_ICS)
+#define SHIFT_BYTES        (SHIFT_BITS / 8)
+
+
+typedef uint16_t leds[NUM_LEDS_PER_IC];
+
 #endif
